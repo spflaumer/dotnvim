@@ -48,9 +48,13 @@ require("lualine").setup({
                 lualine_z = { },
         },
         -- verify that this doesn't collide with bufferline.nvim
-        --winbar = {
+        --tabline = {
         --        lualine_a = { "buffers" },
         --        lualine_b = { "filename" },
+        --        lualine_c = {},
+        --        lualine_x = {},
+        --        lualine_y = {},
+        --        lualine_z = {},
         --}
         tabline = {},
 })

@@ -13,8 +13,27 @@ set("n", "<leader>e", c("Ex"), { desc = "netrw" })
 
 -- move to start or end of current line
 set({"n", "v"}, "<C-Left>", "<cmd>lua vim.fn.feedkeys('^')<cr>", { desc = "goto line start" })
-set({"n", "v"}, "<C-Right>", "<cmd>lua vim.fn.feedkeys('$')<cr>", { desc = "goto line end" })
+set("i", "<C-Left>", "<C-o>^", { desc = "goto line start" })
+set({"n", "v", "i"}, "<C-Right>", "<cmd>lua vim.fn.feedkeys('$')<cr>", { desc = "goto line end" })
 
+-- close window/buffer
+set("n", "<leader>;", "<cmd>bdelete<cr>", { desc = "close buffer" })
+set("n", "<leader>'", "<cmd>close<cr>", { desc = "close window" })
+
+-- split window
+set("n", "<C-w>s", "<cmd>vsplit<cr>", { desc = "vertical split" })
+set("n", "<C-w>sh", "<cmd>split<cr>", { desc = "horizontal split" })
+
+-- create new tab/buffer
+set("n", "<C-t>o", "<cmd>tabedit<cr><cmd>Ex<cr>", { desc = "create tab" })
+
+-- cycle buffers
+set("n", "<leader>bn", "<cmd>bnext<cr>", { desc = "next buffer" })
+set("n", "<leader>bp", "<cmd>bprev<cr>", { desc = "prev buffer" })
+
+
+-- resize window using hydra submap
+-- after/plugin/window_submap.lua
 -- move currently selected line up or down
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "line up" })
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "line down" })
@@ -51,7 +70,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 
 -- source current file
 vim.keymap.set("n", "<leader><leader>", function()
-    vim.cmd("so")
+        vim.cmd("so")
 end, { desc = "source" })
 
 -- when things are rough
