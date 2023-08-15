@@ -1,7 +1,7 @@
 local filename = {
         "filename",
         newfile_status = true,
-        path = 1,
+        path = 0,
 
         symbols = {
                 modified = " ",
@@ -22,7 +22,7 @@ local diagnostics = {
 }
 
 local function utc_time()
-        return os.date("%A %Y年%m月%d日 %H時%M分%S秒")
+        return os.date("%a %Y年%m月%d日 %H時%M分%S秒")
 end
 
 require("lualine").setup({
