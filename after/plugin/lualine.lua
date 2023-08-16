@@ -25,7 +25,10 @@ local function utc_time()
         return os.date("%a %Y年%m月%d日 %H時%M分%S秒")
 end
 
-require("lualine").setup({
+local stat, ll = pcall(require, "lualine")
+if (not stat) then return end
+
+ll.setup({
         options = {
                 theme = "auto", --replace with "base16" soon
                 component_separators = { left = '', right = ''},

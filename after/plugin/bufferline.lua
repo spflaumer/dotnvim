@@ -1,6 +1,6 @@
 local stat, bline = pcall(require,"bufferline")
 if (not stat) then
-        print("bufferline unavailable")
+--        print("bufferline unavailable")
         return
 end
 
