@@ -22,7 +22,15 @@ local diagnostics = {
 }
 
 local function utc_time()
-        return os.date("%a %Y年%m月%d日 %H時%M分%S秒")
+        return os.date("%Y年%m月%d日 %H時%M分%S秒")
+end
+
+local function inactive_note()
+        return "inactive"
+end
+
+local function active_note()
+        return "active"
 end
 
 local stat, ll = pcall(require, "lualine")
@@ -39,8 +47,8 @@ ll.setup({
                 lualine_b = { filename, "location", diagnostics },
                 lualine_c = { "branch" },
                 lualine_x = { "progress" },
-                lualine_y = { "filetype", "fileformat", "encoding" },
-                lualine_z = { utc_time },  -- write a on_click timer plugin
+                lualine_y = { { "filetype", colored = false }, "fileformat", "encoding" },
+                lualine_z = { active_note },
         },
         inactive_sections = {
                 lualine_a = { "mode" },
@@ -48,16 +56,23 @@ ll.setup({
                 lualine_c = { "branch" },
                 lualine_x = { "progress" },
                 lualine_y = { },
-                lualine_z = { },
+                lualine_z = { inactive_note },
         },
         -- verify that this doesn't collide with bufferline.nvim
-        --tabline = {
+        --tabline = 
         --        lualine_a = { "buffers" },
         --        lualine_b = { "filename" },
         --        lualine_c = {},
         --        lualine_x = {},
         --        lualine_y = {},
         --        lualine_z = {},
-        --}
-        tabline = {},
+        --
+        tabline = {
+                lualine_a = { "buffers" },
+                lualine_b = {},
+                lualine_c = {},
+                lualine_x = {},
+                lualine_y = {},
+                lualine_z = { utc_time },
+        }
 })
