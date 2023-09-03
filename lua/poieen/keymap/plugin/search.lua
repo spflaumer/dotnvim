@@ -5,6 +5,7 @@ require("which-key").register({
                 name = "file",
                 f = { tbuiltin.find_files, "find files" },
                 g = { tbuiltin.git_files, "find git tracked files" },
+                u = { vim.cmd.UndotreeToggle, "toggle undotree" },
         },
         s = {
                 name = "search",

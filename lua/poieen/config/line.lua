@@ -18,9 +18,9 @@ local colors = {
         diag_error = utils.get_highlight("DiagnosticError").fg,
         diag_hint = utils.get_highlight("DiagnosticHint").fg,
         diag_info = utils.get_highlight("DiagnosticInfo").fg,
-        git_del = utils.get_highlight("diffDeleted").fg,
+        git_del = utils.get_highlight("diffRemoved").fg,
         git_add = utils.get_highlight("diffAdded").fg,
-        git_change = utils.get_highlight("diffChanged").fg,
+        git_change = utils.get_highlight("diffSubname").fg,
 }
 
 local mode = {
@@ -158,11 +158,15 @@ file = utils.insert(file,
 
 local branch = {
         init = function(self)
-                self.status_dict = vim.b.gitsigns_status_dict
-                self.has_changes = self.status_dict.added ~= 0 or self.status_dict.removed ~= 0 or self.status_dict.changed ~=0
+                self.status_dict = vim.api.nvim_eval("b:gitsigns_status_dict") or { added = 0, removed = 0, changed = 0 }
+                self.has_changes = self.status_dict.added > 0 or self.status_dict.removed > 0 or self.status_dict.changed > 0
         end,
 
-        hl = { fg = "purple" },
+        hl = { fg = "orange" },
+
+        {condition = function(self)
+                 return self.has_changes
+         end,
         {
                 -- branch name
                 provider = function(self)
@@ -170,37 +174,36 @@ local branch = {
                 end,
                 hl = { bold = true },
         },
-        {
-                provider = " ",
-        },
-        {
+
+        utils.surround({" ", ""}, "git_add", {
                 provider = function(self)
                         local c = self.status_dict.added or 0
-                        return c > 0 and ("+" .. c)
+                        return c > 0 and (c)
                 end,
-        },
-        {
+                hl = { bg = "git_add", fg = "mode_fg" }
+        }),
+        utils.surround({" ", ""}, "git_del", {
                 provider = function(self)
                         local c = self.status_dict.removed or 0
-                        return c > 0 and ("+" .. c)
+                        return c > 0 and (c)
                 end,
-        },
-        {
+                hl = { bg = "git_del", fg = "mode_fg" }
+        }),
+        utils.surround({" ", "  "}, "git_change", {
                 provider = function(self)
-                        local c = self.status_dict.changed or 0
-                        return c > 0 and ("+" .. c)
+                        local c = self.status_dict.added or 0
+                        return c > 0 and (c)
                 end,
+                hl = { bg = "git_change", fg = "mode_fg" }
+        }),
         },
-        {
-                provider = " "
-        }
 }
 
 
 local statusline = {
         utils.surround({"", " "}, function(self) return self:mode_color() end, mode),
-        utils.surround({"", " %="}, function(self) return self:mode_color() end, file),
-        branch,
+        utils.surround({"", "  "}, function(self) return self:mode_color() end, file),
+        branch, { provider = "", hl = { fg = "mode_fg", bg = utils.get_highlight("StatusLine").bg }, },
 
         static = {
                 mode_colors = {
