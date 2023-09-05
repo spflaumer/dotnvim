@@ -208,7 +208,7 @@ local git = {
 local statusline = {
         utils.surround({"", " "}, function(self) return self:mode_color() end, mode),
         utils.surround({"", "  "}, function(self) return self:mode_color() end, file),
-        utils.surround({"", " "}, "mode_fg", git), { provider = "", hl = { fg = "mode_fg", bg = utils.get_highlight("StatusLine").bg }, },
+        utils.surround({"", "%="}, "mode_fg", git),
 
         static = {
                 mode_colors = {
@@ -232,6 +232,7 @@ local statusline = {
                 end,
         }
 }
+
 
 require("heirline").setup({
         statusline = statusline,

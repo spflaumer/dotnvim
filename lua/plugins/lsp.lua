@@ -32,7 +32,7 @@ return {{
                 lsp.preset("recommended")
 
                 lsp.ensure_installed({
-                        "emmet_ls",
+                        "emmet_language_server",
                         "tsserver",
                         "phpactor",
                         "lua_ls",
