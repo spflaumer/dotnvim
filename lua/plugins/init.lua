@@ -85,8 +85,8 @@ return {
     {
         "ms-jpq/coq_nvim",
         event = "InsertEnter",
-        cmd = { "COQnow" },
         build = ":COQdeps",
+        cmd = { "COQnow", "COQdeps" },
         init = function()
             vim.api.nvim_set_var("coq_settings", {
                 display = {
