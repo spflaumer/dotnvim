@@ -22,7 +22,7 @@
   "oil.nvim": { "branch": "master", "commit": "c4cc8240f1c71defcb67c45da96e44b968d29e5f" },
   "persisted.nvim": { "branch": "main", "commit": "edd8aa41cd87f9da1b6ef0c584068dea192f65b7" },
   "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
-  "tabby.nvim": { "branch": "main", "commit": "55712426431b12beae5f12e731cfb1d707632a3d" },
+  "tabby.nvim": { "branch": "main", "commit": "9806ab6f1ca2af9a134c5e7174522388c31a9552" },
   "telescope-node-modules.nvim": { "branch": "main", "commit": "b846d33ff5763176dc14fc74c30941a2067c82fd" },
   "telescope-repo.nvim": { "branch": "master", "commit": "e17462610fb936bc8a8cc12a249c3252156dd6f7" },
   "telescope-z.nvim": { "branch": "main", "commit": "3a31d9741fe4353e5c8b59cfc4eda5420dc7f938" },
