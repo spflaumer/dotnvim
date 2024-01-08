@@ -24,12 +24,9 @@ local on_attach = function(client, bufnr)
     } end
 
     local function map(mode, lhs, rhs, opts)
-        local dopts = {
-            noremap = true,
-            buffer = bufnr,
-        }
-        for key, val in pairs(opts) do
-            dopts[key] = val
+        local dopts = { noremap = true, buffer = bufnr }
+        for key, opt in pairs(opts) do
+            dopts[key] = opt
         end
 
         vim.keymap.set(mode, lhs, rhs, dopts)
@@ -39,7 +36,7 @@ local on_attach = function(client, bufnr)
         map("n", lhs, rhs, opts)
     end
 
-    local function c(cmd)
+    local c = function(cmd)
         return "<cmd>Lspsaga "..cmd.."<cr>"
     end
 
@@ -64,10 +61,11 @@ local on_attach = function(client, bufnr)
 
     map({"n", "i"}, "<M-o>", c"outline", { desc = "show code outline" })
 
-    mapn("<leader>lr", c"lsp_rename", { desc = "rename" })
-    mapn("<leader>lrp", c"lsp_rename ++project", { desc = "rename (project-wide)"})
+    mapn("<leader>lr", c"rename", { desc = "rename" })
 
     mapn("<leader>tt", "<cmd>Lspsaga term_toggle<cr>", { desc = "toggle term", buffer = 0 })
+
+    require"lazy".load "fidget.nvim"
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
