@@ -11,5 +11,5 @@ map({"n", "v"}, "<leader>d", '"_d', { desc = "delete to void" })
 mapn("n", "nzzzv", { desc = "next result" })
 mapn("N", "Nzzzv", { desc = "prev result" })
 
-mapn("<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "search and replace" })
+mapn("<M-r>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "search and replace" })
 

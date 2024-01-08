@@ -146,8 +146,9 @@ return {
     },
     {
         "folke/which-key.nvim",
-        keys = { "<leader>", "<c-r>", "<c-w>", '"', "'", "`", "c", "v", "g" },
+        keys = { "<leader>", "<c-r>", "<c-w>", '"', "'", "`", "c", "v", "g", "[", "]" },
         cmd = { "WhichKey" },
+        opts = require"plugins.configs.whichkey",
         config = function(_, opts)
             require"which-key".setup(opts)
         end
@@ -181,23 +182,15 @@ return {
     },
     {
         "olimorris/persisted.nvim",
-        event = "VimLeavePre",
         keys = { "<leader>ss", "<leader>sl" },
         cmd = { "SessionSave", "SessionLoad" },
         config = function()
-            require"persisted".setup{
-                use_git_branch = true,
-                autosave = false,
-                should_autosave = function()
-                    return (vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "lazy" and vim.bo.filetype ~= "")
-                end,
-                allowed_dirs = {
-                    "~/.config",
-                    "~/Code",
-                },
-            }
+            require"persisted".setup{ use_git_branch = true }
 
-            require"core.utils".mapn("<leader>ss", "<cmd>SessionSave<cr>", { desc = "save session" })
+            require"core.utils".mapn("<leader>ss", function()
+                vim.cmd"SessionSave"
+                vim.notify ((vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "lazy" and vim.bo.filetype ~= "") and "Session was Saved" or ("Can't save inside `"..vim.bo.filetype.."` filetype!"))
+            end, { desc = "save session" })
             require"core.utils".mapn("<leader>sl", "<cmd>Telescope persisted<cr>", { desc = "load session" })
         end,
     },
@@ -321,7 +314,7 @@ return {
         config = function()
             vim.opt.showtabline = 2
 
-            require"tabby.tabline".use_preset("active_wins_at_tail", {
+            require"tabby.tabline".use_preset("active_tab_with_wins", {
                 nerdfont = true,
                 lualine_theme = "auto",
                 tab_name = {
@@ -334,24 +327,30 @@ return {
         end
     },
     {
-        "j-hui/fidget.nvim",
-        opts = {
-            progress = {
-                poll_rate = 2,
-                suppress_on_insert = true,
-                ignore_done_already = true,
-                clear_on_detach = function(client_id)
-                    local client = vim.lsp.get_client_by_id(client_id)
-                    return client and client.name or nil
-                end,
-                display = {
-                    done_icon = "\u{f0a50}",
-                },
-            },
-            notification = {
-                view = { stack_upwards = false },
-                window = { align = "top" },
-            }
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = require"plugins.configs.noice",
+        config = function(_, opts)
+            require"noice".setup(opts)
+        end,
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
         }
+    },
+    {
+        "MunifTanjim/nui.nvim",
+        module = true,
+    },
+    {
+        "rcarriga/nvim-notify",
+        opts = {
+            background_colour = "NotifyHighlight"
+        },
+        config = function(_, opts)
+            vim.api.nvim_set_hl(0, "NotifyHighlight", { bg = "black", sp = "black" })
+            require"notify".setup(opts)
+        end,
+        module = true,
     }
 }

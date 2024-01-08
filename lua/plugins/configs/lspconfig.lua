@@ -40,6 +40,18 @@ local on_attach = function(client, bufnr)
         return "<cmd>Lspsaga "..cmd.."<cr>"
     end
 
+    map({ "n", "i", "s" }, "<c-f>", function()
+        if not require("noice.lsp").scroll(4) then
+            return "<c-f>"
+        end
+    end, { silent = true, expr = true })
+
+    map({ "n", "i", "s" }, "<c-b>", function()
+        if not require("noice.lsp").scroll(-4) then
+            return "<c-b>"
+        end
+    end, { silent = true, expr = true })
+
     mapn("<leader>lci", c"incoming_calls", { desc = "incoming calls"})
     mapn("<leader>lco", c"outgoing_calls", { desc = "outgoing calls"})
 
@@ -53,6 +65,8 @@ local on_attach = function(client, bufnr)
 
     mapn("[d", c"diagnostic_jump_prev", { desc = "prev diag" })
     mapn("]d", c"diagnostic_jump_next", { desc = "next diag" })
+    mapn("<leader>ld", c"show_buf_diagnostics", { desc = "show diagnostics" })
+    map({"n", "i"}, "<M-d>", c"show_cursor_diagnostics", { desc = "cursor diagnostics" })
 
     mapn("<leader>lf", c"finder", { desc = "finder" })
 
@@ -61,11 +75,9 @@ local on_attach = function(client, bufnr)
 
     map({"n", "i"}, "<M-o>", c"outline", { desc = "show code outline" })
 
-    mapn("<leader>lr", c"rename", { desc = "rename" })
+    mapn("<leader>lr", c"rename", { desc = "rename symbol" })
 
     mapn("<leader>tt", "<cmd>Lspsaga term_toggle<cr>", { desc = "toggle term", buffer = 0 })
-
-    require"lazy".load "fidget.nvim"
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
