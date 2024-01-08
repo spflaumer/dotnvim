@@ -8,7 +8,7 @@ return {
         untracked = { text = "│" },
     },
     on_attach = function(bufnr)
-        local utils = require"utils"
+        local utils = require"core.utils"
         local mapn = utils.mapn
 
         mapn("]c", function()
