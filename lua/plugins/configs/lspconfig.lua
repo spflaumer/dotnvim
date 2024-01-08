@@ -1,27 +1,29 @@
 -- more NvChad inspiration drawn here
 
-local coq = require"coq"
+local coq = require "coq"
 
 local on_attach = function(client, bufnr)
-    if not vim.g.lspsaga_version then require"lspsaga".setup {
-        ui = {
-            expand = ">",
-            collapse = "^",
-            code_action = "\u{f0eb}",
-        },
-        lightbulb = { enabled = true },
-        symbol_in_winbar = {
-            enable = true,
-        },
-        callhierarchy = { keys = {
-            close = "<C-k>",
-        }},
-        code_action = { keys = {
-            quit = "<C-k>",
-        }},
-        implement = { enable = true },
-        outline = { close_after_jump = true },
-    } end
+    if not vim.g.lspsaga_version then
+        require "lspsaga".setup {
+            ui = {
+                expand = ">",
+                collapse = "^",
+                code_action = "\u{f0eb}",
+            },
+            lightbulb = { enabled = true },
+            symbol_in_winbar = {
+                enable = true,
+            },
+            callhierarchy = { keys = {
+                close = "<C-k>",
+            } },
+            code_action = { keys = {
+                quit = "<C-k>",
+            } },
+            implement = { enable = true },
+            outline = { close_after_jump = true },
+        }
+    end
 
     local function map(mode, lhs, rhs, opts)
         local dopts = { noremap = true, buffer = bufnr }
@@ -37,7 +39,7 @@ local on_attach = function(client, bufnr)
     end
 
     local c = function(cmd)
-        return "<cmd>Lspsaga "..cmd.."<cr>"
+        return "<cmd>Lspsaga " .. cmd .. "<cr>"
     end
 
     map({ "n", "i", "s" }, "<c-f>", function()
@@ -52,30 +54,30 @@ local on_attach = function(client, bufnr)
         end
     end, { silent = true, expr = true })
 
-    mapn("<leader>lci", c"incoming_calls", { desc = "incoming calls"})
-    mapn("<leader>lco", c"outgoing_calls", { desc = "outgoing calls"})
+    mapn("<leader>lci", c "incoming_calls", { desc = "incoming calls" })
+    mapn("<leader>lco", c "outgoing_calls", { desc = "outgoing calls" })
 
-    mapn("<leader>la", c"code_action", { desc = "code actions" })
+    mapn("<leader>la", c "code_action", { desc = "code actions" })
 
-    map({"n", "i"}, "<M-p>d", c"peek_definition", { desc = "peek def" })
-    map({"n", "i"}, "<M-p>t", c"peek_type_definition", { desc = "peek type" })
+    map({ "n", "i" }, "<M-p>d", c "peek_definition", { desc = "peek def" })
+    map({ "n", "i" }, "<M-p>t", c "peek_type_definition", { desc = "peek type" })
 
-    map({"n", "i"}, "<M-g>d", c"goto_definition", { desc = "goto def" })
-    map({"n", "i"}, "<M-g>t", c"goto_type_definition", { desc = "goto type" })
+    map({ "n", "i" }, "<M-g>d", c "goto_definition", { desc = "goto def" })
+    map({ "n", "i" }, "<M-g>t", c "goto_type_definition", { desc = "goto type" })
 
-    mapn("[d", c"diagnostic_jump_prev", { desc = "prev diag" })
-    mapn("]d", c"diagnostic_jump_next", { desc = "next diag" })
-    mapn("<leader>ld", c"show_buf_diagnostics", { desc = "show diagnostics" })
-    map({"n", "i"}, "<M-d>", c"show_cursor_diagnostics", { desc = "cursor diagnostics" })
+    mapn("[d", c "diagnostic_jump_prev", { desc = "prev diag" })
+    mapn("]d", c "diagnostic_jump_next", { desc = "next diag" })
+    mapn("<leader>ld", c "show_buf_diagnostics", { desc = "show diagnostics" })
+    map({ "n", "i" }, "<M-d>", c "show_cursor_diagnostics", { desc = "cursor diagnostics" })
 
-    mapn("<leader>lf", c"finder", { desc = "finder" })
+    mapn("<leader>lf", c "finder", { desc = "finder" })
 
-    map({"n", "i"}, "<M-s>", c"hover_doc", { desc = "hover docs" })
-    map({"n", "i"}, "<M-s>p", c"hover_doc ++keep", { desc = "hover docs (pin)" })
+    map({ "n", "i" }, "<M-s>", c "hover_doc", { desc = "hover docs" })
+    map({ "n", "i" }, "<M-s>p", c "hover_doc ++keep", { desc = "hover docs (pin)" })
 
-    map({"n", "i"}, "<M-o>", c"outline", { desc = "show code outline" })
+    map({ "n", "i" }, "<M-o>", c "outline", { desc = "show code outline" })
 
-    mapn("<leader>lr", c"rename", { desc = "rename symbol" })
+    mapn("<leader>lr", c "rename", { desc = "rename symbol" })
 
     mapn("<leader>tt", "<cmd>Lspsaga term_toggle<cr>", { desc = "toggle term", buffer = 0 })
 end
@@ -100,16 +102,27 @@ capabilities.textDocument.completion.completionItem = {
     },
 }
 
-require"mason-lspconfig".setup_handlers {
-    function (server_name)
-        require("lspconfig")[server_name].setup(coq.lsp_ensure_capabilities{
+local ft = require "guard.filetype"
+
+ft("c"):lint("clang-tidy")
+ft("lua"):fmt("lsp")
+ft("javascript,typescript"):fmt("eslint_d"):append("prettier")
+
+require "guard".setup {
+    fmt_on_save = true,
+    lsp_as_default_formatter = false,
+}
+
+require "mason-lspconfig".setup_handlers {
+    function(server_name)
+        require("lspconfig")[server_name].setup(coq.lsp_ensure_capabilities {
             on_attach = on_attach,
             capabilities = capabilities,
         })
     end,
 
     ["lua_ls"] = function()
-        require("lspconfig").lua_ls.setup(coq.lsp_ensure_capabilities{
+        require("lspconfig").lua_ls.setup(coq.lsp_ensure_capabilities {
             on_attach = on_attach,
             capabilities = capabilities,
 
@@ -134,3 +147,4 @@ require"mason-lspconfig".setup_handlers {
     end
 }
 
+require "plugins.configs.external_lsp" (on_attach, capabilities)

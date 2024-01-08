@@ -5,6 +5,8 @@
   "coq.thirdparty": { "branch": "3p", "commit": "981f8a9a38c338143019fc317ec46b1711772dd6" },
   "coq_nvim": { "branch": "coq", "commit": "4337cb19c7bd922fa9b374456470a753dc1618d4" },
   "gitsigns.nvim": { "branch": "main", "commit": "3e6e91b09f0468c32d3b96dcacf4b947f037ce25" },
+  "guard-collection": { "branch": "main", "commit": "13e00d19f418d68977c6bc803f0d23d09dce580d" },
+  "guard.nvim": { "branch": "main", "commit": "394317c25a6b0f0e064aebcfcf902e46fb0a04ba" },
   "indent-blankline.nvim": { "branch": "master", "commit": "3c8a185da4b8ab7aef487219f5e001b11d4b6aaf" },
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
   "lspsaga.nvim": { "branch": "main", "commit": "3112b7aba57653199ad20198f477d94781bb2310" },

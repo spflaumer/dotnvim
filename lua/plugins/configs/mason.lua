@@ -1,5 +1,5 @@
 return {
-    ensure_installed = { "lua-language-server", "zls" },
+    ensure_installed = { "lua-language-server", "zls", "typescript-language-server", "prettier", "eslint_d" },
 
     ui = {
         icons = {
