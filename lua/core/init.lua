@@ -42,5 +42,7 @@ vim.opt.hlsearch = false
 
 vim.opt.termguicolors = true
 
-require"core.bootstrap"
-require"core.mappings"
+vim.opt.scrolloff = 10
+
+require "core.bootstrap"
+require "core.mappings"

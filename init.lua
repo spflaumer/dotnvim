@@ -4,7 +4,6 @@ if vim.version().minor >= 9 then
     vim.loader.enable()
 end
 
-require"core"
+require "core"
 
-require"lazy".setup(require"plugins", require"plugins.configs.lazy")
-
+require "lazy".setup(require "plugins", require "plugins.configs.lazy")

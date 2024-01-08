@@ -21,10 +21,10 @@ return {
         cmd = { "TSInstall", "TSBufEnable", "TSBufDisable", "TSModuleInfo" },
         build = ":TSUpdate",
         init = function()
-            vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
+            vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "BufNewFile" }, {
                 callback = function()
                     local file = vim.fn.expand "%"
-                    local cond = file:sub(1, 3) ~= "oil" and file ~= "[lazy]" and file ~= ""
+                    local cond = (file:sub(1, 3) ~= "oil" and file ~= "[lazy]" and file ~= "")
 
                     if cond then return end
 
@@ -56,10 +56,10 @@ return {
     {
         "neovim/nvim-lspconfig",
         init = function()
-            vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
+            vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "BufNewFile" }, {
                 callback = function()
                     local file = vim.fn.expand "%"
-                    local cond = file:sub(1, 3) ~= "oil" and file ~= "[lazy]" and file ~= ""
+                    local cond = (file:sub(1, 3) ~= "oil" and file ~= "[lazy]" and file ~= "")
 
                     if not cond then return end
 
@@ -74,16 +74,44 @@ return {
             require "plugins.configs.lspconfig"
         end
     },
+    -- need to make an integration with mason
+    -- {
+    --     "stevearc/conform.nvim",
+    --     opts = require"plugins.configs.format".conform,
+    --     config = function(_, opts)
+    --         require"conform".setup(opts)
+    --     end,
+    --     init = function()
+    --         vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "BufNewFile" }, {
+    --             callback = function()
+    --                 local file = vim.fn.expand "%"
+    --                 local cond = (file:sub(1, 3) ~= "oil" and file ~= "[lazy]" and file ~= "")
+    --
+    --                 if not cond then return end
+    --
+    --                 vim.schedule(function()
+    --                     require "lazy".load { plugins = "conform.nvim" }
+    --                 end)
+    --             end
+    --         })
+    --
+    --         vim.api.nvim_create_autocmd("BufWritePre", {
+    --             pattern = "*",
+    --             callback = function(ev)
+    --                 require"conform".format { bufnr = ev.buf }
+    --             end
+    --         })
+    --     end,
+    -- },
     {
-        "nvimdev/guard.nvim",
-        module = true,
-        dependencies = {
-            "nvimdev/guard-collection", module = true,
-        },
+        "lukas-reineke/lsp-format.nvim",
+        opts = require"plugins.configs.format".lsp,
+        config = function(_, opts)
+            require"lsp-format".setup(opts)
+        end
     },
     {
         "nvimdev/lspsaga.nvim",
-        module = true,
         cmd = { "Lspsaga" },
     },
     {
@@ -161,7 +189,7 @@ return {
     {
         "lukas-reineke/indent-blankline.nvim",
         init = function()
-            vim.api.nvim_create_autocmd({ "BufRead", "BufWinEnter", "BufNewFile" }, {
+            vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter", "BufNewFile" }, {
                 callback = function()
                     local file = vim.fn.expand "%"
                     local cond = file:sub(1, 3) ~= "oil" and file ~= "[lazy]" and file ~= ""
@@ -269,7 +297,7 @@ return {
         "lewis6991/gitsigns.nvim",
         ft = { "gitcommit", "diff" },
         init = function()
-            vim.api.nvim_create_autocmd({ "BufRead" }, {
+            vim.api.nvim_create_autocmd({ "BufEnter" }, {
                 callback = function()
                     vim.fn.jobstart({ "git", "-C", vim.loop.cwd(), "rev-parse" },
                         {
@@ -335,7 +363,8 @@ return {
     },
     {
         "folke/noice.nvim",
-        event = "VeryLazy",
+        --event = "VeryLazy",
+        disabled = true,
         opts = require "plugins.configs.noice",
         config = function(_, opts)
             require "noice".setup(opts)

@@ -3,6 +3,8 @@
 local coq = require "coq"
 
 local on_attach = function(client, bufnr)
+    require"lsp-format".on_attach(client, bufnr)
+
     if not vim.g.lspsaga_version then
         require "lspsaga".setup {
             ui = {
@@ -102,22 +104,12 @@ capabilities.textDocument.completion.completionItem = {
     },
 }
 
-local ft = require "guard.filetype"
-
-ft("c"):lint("clang-tidy")
-ft("lua"):fmt("lsp")
-ft("javascript,typescript"):fmt("eslint_d"):append("prettier")
-
-require "guard".setup {
-    fmt_on_save = true,
-    lsp_as_default_formatter = false,
-}
-
 require "mason-lspconfig".setup_handlers {
     function(server_name)
         require("lspconfig")[server_name].setup(coq.lsp_ensure_capabilities {
             on_attach = on_attach,
             capabilities = capabilities,
+            init_options = { documentFormatting = true },
         })
     end,
 
@@ -125,6 +117,7 @@ require "mason-lspconfig".setup_handlers {
         require("lspconfig").lua_ls.setup(coq.lsp_ensure_capabilities {
             on_attach = on_attach,
             capabilities = capabilities,
+            init_options = { documentFormatting = true },
 
             settings = {
                 Lua = {
