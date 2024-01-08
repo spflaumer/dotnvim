@@ -39,7 +39,7 @@ return {
     },
     {
         "williamboman/mason.nvim",
-        cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
+        cmd = { "Mason", "MasonInstall", "MasonUpdate" },
         opts = require "plugins.configs.mason",
         dependencies = {
             {
