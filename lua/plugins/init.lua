@@ -41,14 +41,15 @@ return {
         "williamboman/mason.nvim",
         cmd = { "Mason", "MasonInstall", "MasonInstallAll", "MasonUpdate" },
         opts = require "plugins.configs.mason",
+        dependencies = {
+            {
+                "williamboman/mason-lspconfig.nvim",
+                config = function()
+                    require "mason-lspconfig".setup(require "plugins.configs.mason".ensure_installed)
+                end,
+            },
+        },
         config = function(_, opts)
-            vim.api.nvim_create_user_command("MasonInstallAll", function()
-                -- stolen from NvChad
-                if opts.ensure_installed and #opts.ensure_installed > 0 then
-                    vim.cmd("MasonInstall " .. table.concat(opts.ensure_installed, " "))
-                end
-            end, {})
-
             require "mason".setup(opts)
         end
     },
@@ -72,10 +73,6 @@ return {
         config = function()
             require "plugins.configs.lspconfig"
         end
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        module = true,
     },
     {
         "nvimdev/guard.nvim",
@@ -198,7 +195,7 @@ return {
             require "core.utils".mapn("<leader>ss", function()
                 vim.cmd "SessionSave"
                 vim.notify((vim.bo.filetype ~= "oil" and vim.bo.filetype ~= "lazy" and vim.bo.filetype ~= "") and
-                "Session was Saved" or ("Can't save inside `" .. vim.bo.filetype .. "` filetype!"))
+                    "Session was Saved" or ("Can't save inside `" .. vim.bo.filetype .. "` filetype!"))
             end, { desc = "save session" })
             require "core.utils".mapn("<leader>sl", "<cmd>Telescope persisted<cr>", { desc = "load session" })
         end,
