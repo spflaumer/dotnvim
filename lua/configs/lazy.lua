@@ -1,6 +1,6 @@
 return {
     defaults = { lazy = true },
-    install = { colorscheme = { "carbonfox" } },
+    install = { colorscheme = { "carbonfox", "default" } },
 
     ui = {
         icons = {
@@ -9,7 +9,11 @@ return {
             loaded = "",
             not_loaded = "",
         },
+        wrap = false,
+        border = "rounded",
     },
+
+    change_detection = { notify = false },
 
     performance = {
         rtp = {
