@@ -22,6 +22,7 @@ return function()
                 node_decremental = "gnd",
             }
         },
+        -- nvim-treesitter-refactor
         refactor = {
             enable = true,
             highlight_definitions = {

@@ -1,7 +1,7 @@
 local lazyLoad = require"core.utils".lazyLoad
 
 return {
-   {
+    {
         "nvim-treesitter/nvim-treesitter",
         opts = function() return require"core.utils".config "treesitter" end,
         init = function()
@@ -12,19 +12,16 @@ return {
         config = function(_, opts)
             require"nvim-treesitter.configs".setup(opts)
         end,
-        build = ":TSUpdate"
+        build = ":TSUpdate",
+        dependencies = {
+            {
+                "nvim-treesitter/nvim-treesitter-context",
+                opts = function() require"core.utils".config "treesitter-context" end,
+            },
+            {
+                "nvim-treesitter/nvim-treesitter-refactor",
+                config = false,
+            }
+        }
     },
-    {
-        "nvim-treesitter/nvim-treesitter-context",
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-        opts = function() require"core.utils".config "treesitter-context" end,
-        init = function()
-            lazyLoad("nvim-treesitter-context")
-        end,
-    },
-    {
-        "nvim-treesitter/nvim-treesitter-refactor",
-        module = true,
-        dependencies = { "nvim-treesitter/nvim-treesitter" },
-    }
 }

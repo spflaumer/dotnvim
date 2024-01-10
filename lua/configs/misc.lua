@@ -5,6 +5,8 @@ local m = {}
 
 local nmap = require"core.utils".nmap
 
+m["mason-lspconfig"] = {}
+
 m.oil = function()
     nmap("<leader>e", "<cmd>Oil<cr>", { desc = "open files" })
 
@@ -45,6 +47,30 @@ m["treesitter-context"] = function()
     }
 end
 
-m["treesitter-refactor"] = {}
+m.neodev = {
+    library = { plugins = true },
+    lspconfig = false,
+}
+
+m["coq_3p"] = {
+    { src = "bc", short_name = "MATH", precision = 6 }
+}
+
+m.coq = {
+    display = {
+        ["ghost_text.context"] = { "<-", "" },
+        ["pum.source_context"] = { " from ", "" },
+    },
+    clients = {
+        ["tags.path_sep"] = " > ",
+        ["tree_sitter.path_sep"] = " > ",
+        ["lsp.weight_adjust"] = 1.3,
+        ["buffers.weight_adjust"] = 0.9,
+    },
+    limits = {
+        completion_auto_timeout = 0.095,
+        completion_manual_timeout = 0.7,
+    },
+}
 
 return m

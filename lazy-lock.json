@@ -1,8 +1,24 @@
 {
+  "coq.artifacts": { "branch": "artifacts", "commit": "e7202d1a1b5cfa91446d5b7a035f915934e4d713" },
+  "coq.thirdparty": { "branch": "3p", "commit": "981f8a9a38c338143019fc317ec46b1711772dd6" },
+  "coq_nvim": { "branch": "coq", "commit": "4337cb19c7bd922fa9b374456470a753dc1618d4" },
+  "harpoon": { "branch": "master", "commit": "ccae1b9bec717ae284906b0bf83d720e59d12b91" },
   "lazy.nvim": { "branch": "main", "commit": "96584866b9c5e998cbae300594d0ccfd0c464627" },
+  "lspsaga.nvim": { "branch": "main", "commit": "3112b7aba57653199ad20198f477d94781bb2310" },
+  "mason-lspconfig.nvim": { "branch": "main", "commit": "0989bdf4fdf7b5aa4c74131d7ffccc3f399ac788" },
+  "mason.nvim": { "branch": "main", "commit": "e110bc3be1a7309617cecd77bfe4bf86ba1b8134" },
+  "neodev.nvim": { "branch": "main", "commit": "be8d4d4cab6c13c6a572269c9d6a63774baba9a0" },
   "nightfox.nvim": { "branch": "main", "commit": "83bad1576d94251d460b2cc5635a15dd73cf6f65" },
+  "nvim-lspconfig": { "branch": "master", "commit": "796394fd19fb878e8dbc4fd1e9c9c186ed07a5f4" },
   "nvim-treesitter": { "branch": "master", "commit": "8cd2b230174efbf7b5d9f49fe2f90bda6b5eb16e" },
   "nvim-treesitter-context": { "branch": "master", "commit": "400a99ad43ac78af1148061da3491cba2637ad29" },
   "nvim-treesitter-refactor": { "branch": "master", "commit": "65ad2eca822dfaec2a3603119ec3cc8826a7859e" },
-  "oil.nvim": { "branch": "master", "commit": "c4cc8240f1c71defcb67c45da96e44b968d29e5f" }
+  "nvim-web-devicons": { "branch": "master", "commit": "db0c864375c198cacc171ff373e76bfce2a85045" },
+  "oil.nvim": { "branch": "master", "commit": "c4cc8240f1c71defcb67c45da96e44b968d29e5f" },
+  "plenary.nvim": { "branch": "master", "commit": "55d9fe89e33efd26f532ef20223e5f9430c8b0c0" },
+  "telescope-node-modules.nvim": { "branch": "main", "commit": "b846d33ff5763176dc14fc74c30941a2067c82fd" },
+  "telescope-repo.nvim": { "branch": "master", "commit": "e17462610fb936bc8a8cc12a249c3252156dd6f7" },
+  "telescope-z.nvim": { "branch": "main", "commit": "3a31d9741fe4353e5c8b59cfc4eda5420dc7f938" },
+  "telescope.nvim": { "branch": "0.1.x", "commit": "d90956833d7c27e73c621a61f20b29fdb7122709" },
+  "which-key.nvim": { "branch": "main", "commit": "4433e5ec9a507e5097571ed55c02ea9658fb268a" }
 }
