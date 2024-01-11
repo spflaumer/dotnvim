@@ -8,4 +8,5 @@ return {
     lsp = part"modules".lsp,
     views = part"views",
     routes = part"routes",
+    throttle = 1000 / 60,
 }

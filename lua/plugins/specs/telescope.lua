@@ -5,12 +5,14 @@ return {
         opts = function() require"core.utils".config "telescope" end,
         config = function(_, opts)
             require"telescope".setup(opts)
+            require"telescope".load_extension"persisted"
         end,
         dependencies = {
             "nvim-lua/plenary.nvim",
             "nvim-telescope/telescope-node-modules.nvim",
             "nvim-telescope/telescope-z.nvim",
             "cljoly/telescope-repo.nvim",
+            "olimorris/persisted.nvim",
         },
     },
     {

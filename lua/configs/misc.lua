@@ -3,7 +3,7 @@
 
 local m = {}
 
-local nmap = require"core.utils".nmap
+local nmap = require "core.utils".nmap
 
 m.oil = function()
     nmap("<leader>e", "<cmd>Oil<cr>", { desc = "open files" })
@@ -34,7 +34,7 @@ m.nightfox = {
 
 m["treesitter-context"] = function()
     nmap("[c", function()
-        require"treesitter-context".go_to_context(vim.v.count1)
+        require "treesitter-context".go_to_context(vim.v.count1)
     end, { silent = true, desc = "goto context" })
 
     return {
@@ -79,5 +79,87 @@ m.notify = {
     render = "compact",
     stages = "fade",
 }
+
+m.comment = function()
+    require "core.utils".nmap("<leader>/", function() require "Comment.api".toggle.linewise.current() end,
+        { desc = "toggle comment" })
+    require "core.utils".map("v", "<leader>/",
+        '<ESC><cmd>lua require"Comment.api".toggle.linewise(vim.fn.visualmode())<CR>', { desc = "toggle comment" })
+
+    return {}
+end
+
+m.ibl = {
+    enabled = true,
+    debounce = 50,
+    exclude = {
+        filetypes = {
+            "help",
+            "terminal",
+            "lazy",
+            "lspinfo",
+            "TelescopePrompt",
+            "TelescopeResults",
+            "mason",
+            "oil",
+            "",
+        },
+        buftypes = { "terminal" },
+    },
+    whitespace = { remove_blankline_trail = true },
+    scope = {
+        enabled = true,
+        show_start = true,
+        show_end = true,
+        highlight = { "Function", "Label" }
+    }
+}
+
+m["which-key"] = {
+    plugins = {
+        marks = true,
+        registers = true,
+        spelling = { enabled = true, suggestions = 10 },
+    },
+    key_labels = {
+        ["<leader>"] = "LDR",
+        ["<space>"] = "SPC",
+        ["<cr>"] = "RET",
+        ["<tab>"] = "TAB",
+    }
+}
+
+m.persisted = function()
+    require "core.utils".nmap("<leader>ss", "<cmd>SessionSave<cr>", { desc = "save session" })
+    require "core.utils".nmap("<leader>sl", "<cmd>Telescope persisted<cr>", { desc = "load session" })
+
+    return {
+        use_git_branch = true,
+        autoload = true,
+        autosave = true,
+        should_autosave = function()
+            local file = vim.fn.expand("%")
+            return (file:sub(1, 3) ~= "oil" and file ~= "[lazy]" and file ~= "")
+        end,
+    }
+end
+
+m.cheatsheet = function()
+    local ctact = require "cheatsheet.telescope.actions"
+    require "core.utils".nmap("<leader>?", "<cmd>Cheatsheet<cr>", { desc = "cheatsheet" })
+
+    return {
+        bundled_cheatsheets = true,
+        bundled_plugin_cheatsheets = true,
+
+        include_only_installed_plugins = true,
+        telescope_mappings = {
+            ["<CR>"] = ctact.select_or_fill_commandline,
+            ["<A-CR>"] = ctact.select_or_execute,
+            ["<C-y>"] = ctact.copy_cheat_value,
+            ["<C-e>"] = ctact.edit_user_cheatsheet,
+        }
+    }
+end
 
 return m

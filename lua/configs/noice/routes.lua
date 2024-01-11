@@ -19,5 +19,13 @@ return {
         view = "mini",
         filter = { event = "msg_showmode", find = "record" },
         opts = { replace = true },
+    },
+    {
+        skip = true,
+        filter = { mode = "i" },
+    },
+    {
+        skip = true,
+        filter = { event = "cmdline_show" },
     }
 }
