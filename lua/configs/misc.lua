@@ -5,8 +5,6 @@ local m = {}
 
 local nmap = require"core.utils".nmap
 
-m["mason-lspconfig"] = {}
-
 m.oil = function()
     nmap("<leader>e", "<cmd>Oil<cr>", { desc = "open files" })
 
@@ -52,6 +50,8 @@ m.neodev = {
     lspconfig = false,
 }
 
+m["mason-lspconfig"] = {}
+
 m["coq_3p"] = {
     { src = "bc", short_name = "MATH", precision = 6 }
 }
@@ -71,6 +71,13 @@ m.coq = {
         completion_auto_timeout = 0.095,
         completion_manual_timeout = 0.7,
     },
+}
+
+m.notify = {
+    background_colour = "#000000",
+    fps = 24,
+    render = "compact",
+    stages = "fade",
 }
 
 return m

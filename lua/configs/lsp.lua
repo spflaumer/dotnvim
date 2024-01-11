@@ -22,14 +22,11 @@ local on_attach = function(_, bufnr)
     nmap("<M-t>", c"peek_type_definition", { desc = "type definition" }, { "i" })
     nmap("<leader>lt", c"goto_type_definition", { desc = "goto type definition" })
 
-    nmap("[d", vim.diagnostic.goto_prev, { desc = "prev diag" })
-    nmap("]d", vim.diagnostic.goto_next, { desc = "next diag" })
-
-    nmap("[e", c"diagnostic_jump_prev", { desc = "lspsaga prev diag" })
-    nmap("]e", c"diagnostic_jump_next", { desc = "lspsaga next diag" })
+    nmap("[d", c"diagnostic_jump_prev", { desc = "lspsaga prev diag" })
+    nmap("]d", c"diagnostic_jump_next", { desc = "lspsaga next diag" })
 
     nmap("<leader>lf", c"finder", { desc = "finder" })
-    nmap("<M-s>", c"hover_doc", { desc = "hover doc" }, { "i" })
+    nmap("<M-s>", vim.lsp.buf.hover, { desc = "hover" }, { "i" })
 
     nmap("<leader>lo", c"outline", { desc = "overview" })
 
@@ -61,9 +58,9 @@ return function()
     require"mason-lspconfig".setup_handlers {
         function(server)
             require"lspconfig"[server].setup(require"coq".lsp_ensure_capabilities {
+                init_options = { documentFormatting = true },
                 on_attach = on_attach,
                 capabilities = capabilities,
-                init_options = { documentFormatting = true },
             })
         end,
         ["lua_ls"] = function()
