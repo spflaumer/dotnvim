@@ -131,7 +131,6 @@ m["which-key"] = {
 
 m.persisted = function()
     require "core.utils".nmap("<leader>ss", "<cmd>SessionSave<cr>", { desc = "save session" })
-    require "core.utils".nmap("<leader>sl", "<cmd>Telescope persisted<cr>", { desc = "load session" })
 
     return {
         use_git_branch = true,
