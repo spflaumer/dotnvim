@@ -134,7 +134,7 @@ m.persisted = function()
 
     return {
         use_git_branch = true,
-        autoload = true,
+        autoload = false,
         autosave = true,
         should_autosave = function()
             local file = vim.fn.expand("%")
