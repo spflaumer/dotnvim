@@ -22,7 +22,7 @@ function m.lazyLoad(plugin, events)
         elseif type(plugin) == "function" then
             plugin()
         else
-            error(type(plugin) .. ". `function` expected")
+            error(type(plugin) .. ". `function` or `string` expected")
         end
     end })
 end

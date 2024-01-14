@@ -7,5 +7,9 @@ return {
     {
         "nvim-lua/plenary.nvim",
         module = true
+    },
+    {
+        "ms-jpq/coq.artifacts",
+        module = true
     }
 }

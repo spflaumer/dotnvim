@@ -103,7 +103,15 @@ return {
         "nanozuki/tabby.nvim",
         event = "UIEnter",
         dependencies = "nvim-tree/nvim-web-devicons",
-        opts = {},
+        opts = {
+            nerdfont = true,
+            tab_name = {
+                name_fallback = function(tabid)
+                    return string.format("0x%x", tabid)
+                end,
+            },
+            buf_name = { mode = "unique" },
+        },
         init = function()
             -- set different colors on theme reload
             vim.api.nvim_create_autocmd({"ColorScheme"}, {
@@ -114,16 +122,8 @@ return {
         end,
         config = function(_, opts)
             vim.opt.showtabline = 2
-            require"tabby.tabline".use_preset("active_tab_with_wins", {
-            theme = createTheme(),
-            nerdfont = true,
-            tab_name = {
-                name_fallback = function(tabid)
-                    return tabid
-                end,
-            },
-            buf_name = { mode = "unique" },
-        })
+            require"tabby.tabline".use_preset("active_tab_with_wins", opts)
+            vim.cmd[[silent! do ColorScheme]]
         end
     }
 }

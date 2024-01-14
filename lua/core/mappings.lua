@@ -10,7 +10,7 @@ map("n", "<M-[>", c"tabprev", { desc = "prev tab" })
 map("n", "<M-]>", c"tabnext", { desc = "next tab" })
 
 map("n", "<leader>tn", c"$tabnew", { desc = "new empty tab" })
-map("n", "<leader>te", c"tabclose", { desc = "close tab" })
+map("n", "<leader>tc", c"tabclose", { desc = "close tab" })
 
 map("n", "[t", c"-tabmove", { desc = "prev tab position" })
 map("n", "]t", c"+tabmove", { desc = "next tab position" })

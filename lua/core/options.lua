@@ -24,7 +24,7 @@ vim.opt.undofile = true
 
 vim.opt.updatetime = 50
 vim.opt.timeout = true
-vim.opt.timeoutlen = 250
+vim.opt.timeoutlen = 300
 
 vim.opt.splitright = true
 vim.opt.laststatus = 3
