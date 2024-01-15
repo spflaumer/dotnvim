@@ -93,8 +93,6 @@ return {
                     generic_sorter = require"telescope.sorters".get_generic_fuzzy_sorter,
                     path_display = { "truncate" },
                     winblend = 30,
-                    border = {},
-                    borderchars = { "\u{2500}", "\u{2502}", "\u{2500}", "\u{2502}", "\u{250d}", "\u{250e}", "\u{2515}", "\u{2516}" },
                     color_devicons = true,
                     set_env = { ["COLORTERM"] = "truecolor" },
                     file_previewer = require"telescope.previewers".vim_buffer_cat.new,
