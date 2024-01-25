@@ -132,6 +132,14 @@ local diagnostics = {
     }
 }
 
+local separator = {
+    provider = " ;",
+    hl = {
+        bg = "bright_bg",
+        fg = "bright_fg"
+    }
+}
+
 local git = {
     condition = require"heirline.conditions".is_git_repo,
 
@@ -186,7 +194,9 @@ local git = {
         end,
         provider = ")",
     },
+    separator
 }
+
 
 local center = { provider = "%=" }
 
