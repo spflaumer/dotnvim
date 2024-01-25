@@ -22,6 +22,23 @@ return {
                 )
             end, { "BufEnter", "BufWinEnter" })
         end,
-        opts = function() require"config" "gitsigns" end,
+        opts = function() return require"config" "gitsigns" end,
+    },
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        opts = function()
+            return require"config" "ibl"
+        end,
+        config = function(_, opts)
+            require"ibl".setup(opts)
+        end,
+        event = "BufEnter",
+    },
+    {
+        "ThePrimeagen/refactoring.nvim",
+        opts = function()
+            return require "config" "refactoring"
+        end,
+        event = "BufEnter",
     }
 }

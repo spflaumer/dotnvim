@@ -1,4 +1,3 @@
-
 local function setup_colors()
     local utils = require"heirline.utils"
     return {
