@@ -15,7 +15,7 @@ return {
         "nvim-telescope/telescope.nvim",
         dependencies = { "nvim-lua/plenary.nvim" },
         cmd = { "Telescope" },
-        keys = { "<leader>f" },
+        keys = { "<leader>f", desc = "find" },
         -- this will be used to create keymaps
         opts = function()
             return config "telescope"

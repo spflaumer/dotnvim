@@ -6,6 +6,7 @@ return {
         ["ghost_text.context"] = { "<-", "" },
         ["pum.source_context"] = { "from ", "" },
         ["preview.positions"] = { east = 1, north = 2, south = 3, west = 4 },
+        ["preview.border"] = "rounded",
     },
     clients = {
         lsp = {
@@ -16,7 +17,7 @@ return {
         ["tree_sitter.enabled"] = true,
     },
     limits = {
-        completion_auto_timeout = 0.092,
-        completion_manual_timeout = 0.7,
+        completion_auto_timeout = 0.080,
+        completion_manual_timeout = 0.6,
     }
 }

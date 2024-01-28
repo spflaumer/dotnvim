@@ -2,7 +2,7 @@ return {
     {
         "numToStr/Comment.nvim",
         opts = {},
-        keys = { "gc", "gb" },
+        keys = { "gc", "gb", { mode = "v", "gc" }, { mode = "v", "gb" } },
     },
     {
         "lewis6991/gitsigns.nvim",

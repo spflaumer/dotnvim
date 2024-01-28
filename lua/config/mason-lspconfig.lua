@@ -68,20 +68,34 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 require"mason-lspconfig".setup_handlers {
     function(server)
         require"lspconfig"[server].setup(require"coq".lsp_ensure_capabilities {
-            init_options = { documentFormatting = true },
+            init_options = { documentFormatting = false },
             on_attach = on_attach,
             capabilities = capabilities,
         })
     end,
     ["lua_ls"] = function()
         require"lspconfig".lua_ls.setup(require"coq".lsp_ensure_capabilities {
-            init_options = { documentFormatting = true },
             on_attach = on_attach,
             settings = { Lua = {
                 completion = { callSnippet = "Replace" }
-            }}
+            }},
+            capabilities = capabilities,
+        })
+    end,
+    ["zls"] = function()
+        vim.api.nvim_set_var("zig_fmt_autosave", 0)
+
+        require"lspconfig".zls.setup(require"coq".lsp_ensure_capabilities {
+            on_attach = on_attach,
+            capabilities = capabilities,
         })
     end,
 }
+
+--clangd isn't officially supported on musl
+require"lspconfig".clangd.setup(require"coq".lsp_ensure_capabilities {
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
 
 return {}
