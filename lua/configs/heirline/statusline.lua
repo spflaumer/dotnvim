@@ -97,26 +97,25 @@ local diagnostics = {
     },
     {
         provider = function(self)
-            -- 0 is just another output, we can decide to print it or not!
-            return self.errors > 0 and (self.error_icon .. self.errors .. " ")
+            return self.errors > 0 and (" " .. self.error_icon .. self.errors .. " ")
         end,
         hl = { fg = "diag_error" },
     },
     {
         provider = function(self)
-            return self.warns > 0 and (self.warn_icon .. self.warns .. " ")
+            return self.warns > 0 and (" " .. self.warn_icon .. self.warns .. " ")
         end,
         hl = { fg = "diag_warn" },
     },
     {
         provider = function(self)
-            return self.infos > 0 and (self.info_icon .. self.infos .. " ")
+            return self.infos > 0 and (" " .. self.info_icon .. self.infos .. " ")
         end,
         hl = { fg = "diag_info" },
     },
     {
         provider = function(self)
-            return self.hints > 0 and (self.hint_icon .. self.hints)
+            return self.hints > 0 and (" " .. self.hint_icon .. self.hints .. " ")
         end,
         hl = { fg = "diag_hint" },
     },
@@ -182,7 +181,7 @@ local ruler = {
     hl = bg_follow_mode "dark",
 }
 
-local scroll ={
+local scroll = {
     static = {
         sbar = { '🭶', '🭷', '🭸', '🭹', '🭺', '🭻' }
     },
