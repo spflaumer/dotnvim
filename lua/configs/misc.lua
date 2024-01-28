@@ -112,4 +112,42 @@ m.coq_3p = {
     { src = "bc", short_name = "MATH", precision = 6 },
 }
 
+m.gitsigns = {
+    signs = {
+        add = { text = "│" },
+        change = { text = "│" },
+        delete = { text = "󰍵" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "│" },
+    },
+    on_attach = function(bufnr)
+        local mapn = require"utils".keymap.mode_map("n", { buffer = bufnr })
+
+        mapn("]c", function()
+            if vim.wo.diff then
+                return "]c"
+            end
+            vim.schedule(function()
+                require("gitsigns").next_hunk()
+            end)
+            return "<Ignore>"
+        end, { desc = "next hunk", expr = true })
+        mapn("[c", function()
+            if vim.wo.diff then
+                return "[c"
+            end
+            vim.schedule(function()
+                require("gitsigns").prev_hunk()
+            end)
+            return "<Ignore>"
+        end, { desc = "prev hunk", expr = true })
+
+        mapn("<leader>gr", function() require"gitsigns".reset_hunk() end, { desc = "reset hunk" })
+        mapn("<leader>gp", function() require"gitsigns".preview_hunk() end, { desc = "preview hunk" })
+        mapn("<leader>gb", function() package.loaded.gitsigns.blame_line() end, { desc = "blame line" })
+        mapn("<leader>gd", function() require"gitsigns".toggle_deleted() end, { desc = "toggle deleted" })
+    end,
+}
+
 return m

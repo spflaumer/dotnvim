@@ -29,5 +29,12 @@ return {
             { "<leader>f", desc = "find" },
         },
         cmd = { "Telescope" }
+    },
+    {
+        "rebelot/heirline.nvim",
+        opts = function()
+            return config "heirline"
+        end,
+        event = "VeryLazy",
     }
 }

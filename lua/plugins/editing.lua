@@ -36,5 +36,12 @@ return {
             { "gc", mode = { "n", "o" }, desc = "comment" },
             { "gb", mode = { "n", "o" }, desc = "block comment" }
         }
-    }
+    },
+    {
+        "lewis6991/gitsigns.nvim",
+        event = "BufEnter",
+        opts = function()
+            return config "gitsigns"
+        end,
+    },
 }
