@@ -11,6 +11,13 @@ local lsp_cursor_adj = {
     vertical = { width = 0.5, height = 0.4 },
     horizontal = { width = 0.6, height = 0.4 },
 }
+local vimgrep_arguments = { unpack(require"telescope.config".values.vimgrep_arguments) }
+
+table.insert(vimgrep_arguments, "--hidden")
+table.insert(vimgrep_arguments, "--glob")
+table.insert(vimgrep_arguments, "!**/.git/*")
+table.insert(vimgrep_arguments, "--glob")
+table.insert(vimgrep_arguments, "!**/*cache*/*")
 
 return {
     defaults = {
@@ -23,5 +30,8 @@ return {
         lsp_document_symbols = { layout_config = lsp_cursor_adj },
         lsp_definitions = { layout_config = lsp_cursor_adj },
         lsp_type_definitions = { layout_config = lsp_cursor_adj },
+        find_files = {
+            find_command = { "rg", "--files", "--hidden", "--glob", "!**/.git/*", "--glob", "!**/*cache*/*" },
+        }
     }
 }

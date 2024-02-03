@@ -10,4 +10,4 @@ mapn("<leader>q", c"q", { desc = "quit nvim" })
 mapx("K", ":m '<-2<CR>gv=gv", { desc = "line up" })
 mapx("J", ":m '>+1<CR>gv=gv", { desc = "line down" })
 
-mapn("<C-h>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "search and replace" })
+mapn("<C-f>", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "search and replace" })

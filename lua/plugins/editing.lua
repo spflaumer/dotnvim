@@ -33,8 +33,8 @@ return {
             return config "comment"
         end,
         keys = {
-            { "gc", mode = { "n", "o" }, desc = "comment" },
-            { "gb", mode = { "n", "o" }, desc = "block comment" }
+            { "gc", mode = { "n", "v" }, desc = "comment" },
+            { "gb", mode = { "n", "v" }, desc = "block comment" }
         }
     },
     {

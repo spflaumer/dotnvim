@@ -11,10 +11,10 @@ local on_attach = function(_, bufnr)
     nmap("[d", vim.diagnostic.goto_prev, { desc = "prev diag" })
     nmap("]d", vim.diagnostic.goto_next, { desc = "next diag" })
 
-    nmap("<leader>la", vim.lsp.buf.code_action, { desc = "perform code actions" })
+    nmap("<leader>la", vim.lsp.buf.code_action, { desc = "perform code actions" }, nil)
+    nmap("<leader>lr", function() vim.lsp.buf.rename(nil) end, { desc = "rename symbol" })
     nmap("<M-;>", vim.lsp.buf.hover, { desc = "hover" }, "i")
     nmap("<M-s>", vim.lsp.buf.signature_help, { desc = "func signature" }, "i")
-    nmap("<leader>lr", function() vim.lsp.buf.rename(nil) end, { desc = "rename symbol" })
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()

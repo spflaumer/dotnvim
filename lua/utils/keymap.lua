@@ -12,18 +12,18 @@ end
 -- mode becomes the last argument and is optional
 function m.mode_map(def_mode, def_opts)
     return function(lhs, rhs, opts, mode)
-        mode = mode or {}
+        mode = (type(mode) == "string" and { mode }) or (type(mode) == "table" and mode) or {}
+
         if type(def_mode) == "string" then
             mode[#mode + 1] = def_mode
         end
         if type(def_mode) == "table" then
-            for k,v in pairs(def_mode) do
-                mode[k] = v
+            for k,v in ipairs(def_mode) do
+                mode[#mode + k] = v
             end
         end
 
         opts = opts or {}
-
         if def_opts then for k,v in pairs(def_opts) do
             opts[k] = v
         end end
